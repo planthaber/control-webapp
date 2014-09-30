@@ -1,7 +1,10 @@
+
+
 rock_library(webapp
-    SOURCES Dummy.cpp
-    HEADERS Dummy.hpp)
+    SOURCES Http.cpp Commands.cpp
+    HEADERS Http.hpp Commands.hpp
+    LIBS curl)
 
 rock_executable(webapp_bin Main.cpp
-    DEPS webapp)
-
+    DEPS webapp
+    )
