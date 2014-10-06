@@ -26,18 +26,25 @@ public:
 	};
 
 
-
-
-
 	inline static const char* move(float duration, float forward, float lateral, float yaw){
 		snprintf(charbuf,255,"value={\"d\":%f,\"v\":%f,\"l\":%f,\"y\":%f}",duration,forward,lateral,yaw);
 		return (const char*)&charbuf;
 	};
 
+	inline static const char* moveTo(float x, float y){
+		snprintf(charbuf,255,"value={\"x\":%f,\"y\":%f}",x,y);
+		return (const char*)&charbuf;
+	};
+
+
+	inline static const char* moveArm(float pos[3], float orientation[4]){
+		snprintf(charbuf,255,"value={\"position\": {\"data\": [%f,%f,%f]}, \"orientation\": {\"im\": [%f,%f,%f], \"re\": %f}}",pos[0],pos[1],pos[2],orientation[0],orientation[1],orientation[2],orientation[3]);
+		return (const char*)&charbuf;
+	};
 
 
 private:
-	static char charbuf[256];
+	static char charbuf[1024];
 
 
 };

@@ -9,6 +9,6 @@
 
 namespace webapp {
 
-char Commands::charbuf[256];
+char Commands::charbuf[1024];
 
 } /* namespace webapp */
