@@ -10,6 +10,13 @@ webapp::Http::Http() {
 	curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 	/* example.com is redirected, so we tell libcurl to follow redirection */
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+	/* Force reconnect for GET Requests */
+	//curl_easy_setopt(curl, CURLOPT_FRESH_CONNECT, 1L);
+	/* Disable Nagle Algorithm */
+	curl_easy_setopt(curl, CURLOPT_TCP_NODELAY, 1L);
+
+	//curl_easy_setopt(curl, CURLOPT_FORBID_REUSE, 1L);
+	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 }
 
 webapp::Http::~Http() {
@@ -27,12 +34,14 @@ size_t webapp::Http::write_data(void *ptr, size_t size, size_t nmemb, void *ourp
 	return realsize;
 }
 
-std::string webapp::Http::send(const char* url) {
+std::string webapp::Http::send(const char* url, int timeout) {
 	std::string returnstring;
 
 	curl_easy_setopt(curl, CURLOPT_URL, url);
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, webapp::Http::write_data);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &returnstring);
+	curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
+
 
 	CURLcode res = curl_easy_perform(curl);
 
@@ -45,15 +54,15 @@ std::string webapp::Http::send(const char* url) {
 }
 
 //http://curl.haxx.se/libcurl/c/simple.html
-std::string webapp::Http::get(const char* url){
-	return send(url);
+std::string webapp::Http::get(const char* url, int timeout){
+	return send(url, timeout);
 }
 
-std::string webapp::Http::post(const char* url, const char* data) {
+std::string webapp::Http::post(const char* url, const char* data, int timeout) {
 
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 
-	return send(url);
+	return send(url, timeout);
 }
 
 std::string webapp::Http::postMime(const char* url, const char* data, const char* mime_type) {

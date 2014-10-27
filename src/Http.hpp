@@ -16,16 +16,19 @@ namespace webapp
 			~Http();
 
 
-			std::string get(const char* url);
+			std::string get(const char* url, int timeout = 0);
 
-			std::string post(const char* url,const char* data);
+			std::string post(const char* url,const char* data, int timeout = 0);
 
 			std::string postMime(const char* url, const char* data, const char* mime_type);
 
 
 		private:
 
-			std::string send(const char* url);
+			/**
+			 * timeout 0 never times out
+			 */
+			std::string send(const char* url, int timeout);
 
 			static size_t write_data(void *ptr, size_t size, size_t nmemb, void *ourpointer);
 

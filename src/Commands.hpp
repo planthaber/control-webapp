@@ -42,6 +42,11 @@ public:
 		return (const char*)&charbuf;
 	};
 
+	inline static const char* killJob(int id){
+		snprintf(charbuf,255,"value={\"id\": %d}",id);
+		return (const char*)&charbuf;
+	};
+
 
 private:
 	static char charbuf[1024];
