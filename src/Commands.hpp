@@ -43,7 +43,7 @@ public:
 	};
 
 	inline static const char* killJob(int id){
-		snprintf(charbuf,255,"value={\"id\": %d}",id);
+		snprintf(charbuf,255,"{\"id\": %d}",id);
 		return (const char*)&charbuf;
 	};
 
