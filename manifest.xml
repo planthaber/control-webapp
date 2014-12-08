@@ -15,5 +15,5 @@
   <depend package="dummy-dependency-n" />
   -->
   <!-- <depend package="jsoncpp" /> -->
-  <depend package="curl" />
+  <depend package="curl-dev" />
 </package>
