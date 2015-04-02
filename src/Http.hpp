@@ -5,7 +5,7 @@
 #include <string>
 #include <curl/curl.h>
 
-namespace webapp
+namespace rest_api_cppclient
 {
 	class Http
 	{

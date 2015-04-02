@@ -7,7 +7,7 @@
 
 #include "Commands.hpp"
 
-namespace webapp {
+namespace rest_api_cppclient {
 
 char Commands::charbuf[1024];
 

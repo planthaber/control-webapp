@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-namespace webapp {
+namespace rest_api_cppclient {
 
 class Commands {
 public:
@@ -37,7 +37,7 @@ public:
 	};
 
 
-	inline static const char* moveArm(float pos[3], float orientation[4]){
+	inline static const char* rbsPos(float pos[3], float orientation[4]){
 		snprintf(charbuf,255,"value={\"position\": {\"data\": [%f,%f,%f]}, \"orientation\": {\"im\": [%f,%f,%f], \"re\": %f}}",pos[0],pos[1],pos[2],orientation[0],orientation[1],orientation[2],orientation[3]);
 		return (const char*)&charbuf;
 	};
@@ -46,6 +46,7 @@ public:
 		snprintf(charbuf,255,"{\"id\": %d}",id);
 		return (const char*)&charbuf;
 	};
+
 
 
 private:

@@ -2,7 +2,7 @@
 
 
 
-webapp::Http::Http() {
+rest_api_cppclient::Http::Http() {
 	curl_global_init(CURL_GLOBAL_ALL);
 
 	curl = curl_easy_init();
@@ -19,13 +19,13 @@ webapp::Http::Http() {
 	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 }
 
-webapp::Http::~Http() {
+rest_api_cppclient::Http::~Http() {
 	 curl_easy_cleanup(curl);
 
 
 }
 
-size_t webapp::Http::write_data(void *ptr, size_t size, size_t nmemb, void *ourpointer){
+size_t rest_api_cppclient::Http::write_data(void *ptr, size_t size, size_t nmemb, void *ourpointer){
 	//http://curl.haxx.se/libcurl/c/getinmemory.html
 	int realsize = size*nmemb;
 	std::string* returnstr = (std::string*)ourpointer;
@@ -34,11 +34,11 @@ size_t webapp::Http::write_data(void *ptr, size_t size, size_t nmemb, void *ourp
 	return realsize;
 }
 
-std::string webapp::Http::send(const char* url, int timeout) {
+std::string rest_api_cppclient::Http::send(const char* url, int timeout) {
 	std::string returnstring;
 
 	curl_easy_setopt(curl, CURLOPT_URL, url);
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, webapp::Http::write_data);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, rest_api_cppclient::Http::write_data);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &returnstring);
 	curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout);
 
@@ -54,18 +54,18 @@ std::string webapp::Http::send(const char* url, int timeout) {
 }
 
 //http://curl.haxx.se/libcurl/c/simple.html
-std::string webapp::Http::get(const char* url, int timeout){
+std::string rest_api_cppclient::Http::get(const char* url, int timeout){
 	return send(url, timeout);
 }
 
-std::string webapp::Http::post(const char* url, const char* data, int timeout) {
+std::string rest_api_cppclient::Http::post(const char* url, const char* data, int timeout) {
 
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 
 	return send(url, timeout);
 }
 
-std::string webapp::Http::postMime(const char* url, const char* data, const char* mime_type) {
+std::string rest_api_cppclient::Http::postMime(const char* url, const char* data, const char* mime_type) {
 	std::string returnstring;
 
 	struct curl_slist *headers = NULL;
