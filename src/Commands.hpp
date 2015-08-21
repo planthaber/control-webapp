@@ -16,8 +16,9 @@ class Commands {
 public:
 
 
-	inline static const char*  motion2d(){
-		return "";
+	inline static const char*  motion2d(float translation, float rotation){
+		snprintf(charbuf,255,"value={\"translation\":%f,\"rotation\":%f}",translation,rotation);
+		return (const char*)&charbuf;
 	};
 
 	inline static const char* motion3d(float forward, float lateral, float yaw){
